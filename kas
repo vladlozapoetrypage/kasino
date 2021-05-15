@@ -1,0 +1,58 @@
+import random
+import sys
+
+
+def help_():
+    print('список команд')
+    print('b -  сделать ставку')
+    print('с - взять кредит')
+    print('t - бросок кубиков')
+    print('x - выйти')
+
+credit = 0
+bet = 0
+
+print('для вывода списка команд введите help')
+
+while True:
+
+    print('Денег:', credit)
+    print('Ставка:', bet)
+    command = input('Введите команду: ')
+
+    if command == 'help':
+        help_()
+    elif command == 'c':
+        credit = int(input('введите суму кредита'))
+        print('ваши текущие деньги',credit,'$')
+    elif command == 'b':
+        bet = int(input('введите ставку: '))
+        if bet > credit:
+            print('у вас нет столько')
+            bet = 0
+        else:
+            credit = credit - bet
+    elif command == 't':
+        if bet == 0:
+            print('сделайте ставку')
+        else:
+            kubik1 = random.randint(0,6)
+            kubik2 = random.randint(0,6)
+            suma1 = kubik1 + kubik2
+            print('вам выпало ', suma1)
+            kubik1 = random.randint(0,6)
+            kubik2 = random.randint(0,6)
+            suma2 = kubik1 + kubik2
+            print('у крупье выпало ', suma2)
+
+            if suma1 == suma2:
+                print('делайте новый бросок')
+            elif suma1 > suma2:
+                credit = credit +bet * 2
+                bet = 0
+                print('вы выиграли')
+            elif suma2 > suma1:
+                bet = 0
+                print('вы проиграли')
+    else:
+        print('неизвестная команда')
